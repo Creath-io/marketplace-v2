@@ -3,15 +3,14 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract Creath is ERC721URIStorage, Ownable {
+contract Creath is Ownable {
 
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
-    Counters.Counter private _nftMinted;
+
 
     /// @dev Events of the contract
     event Minted(
@@ -20,31 +19,10 @@ contract Creath is ERC721URIStorage, Ownable {
         string tokenUri,
         address minter
     );
-    event UpdatePlatformFee(
-        uint256 platformFee
-    );
-    event UpdatePlatformFeeRecipient(
-        address payable platformFeeRecipient
-    );
 
-
-    /// @dev TokenID -> Creator address
-    mapping(uint256 => address) public creators;
-
-    /// @notice Platform fee
-    uint256 public platformFee;
-
-    /// @notice Platform fee recipient
-    address payable public feeRecipient;
 
     /// @notice Contract constructor
-    constructor(
-        address payable _feeRecipient,
-        uint256 _platformFee
-    ) ERC721("Creath Marketplace", "CMP") {
-        platformFee = _platformFee;
-        feeRecipient = _feeRecipient;
-
+    constructor() ERC721("Creath Marketplace", "CREATH") {
         _tokenIds.increment();
     }
 
@@ -54,32 +32,31 @@ contract Creath is ERC721URIStorage, Ownable {
      @param _tokenUri URI for the token being minted
      @return uint256 The token ID of the token that was minted
      */
-    function mint(address _beneficiary, string calldata _tokenUri) external payable returns (uint256) {
-
-        uint256 newNftMinted = _nftMinted.current();
-
-        require(newNftMinted < 1000, 'CreathCollection: Allow to Only Mint limited NFTs');
-        require(msg.value >= platformFee, "CreathCollection: Insufficient funds to mint.");
+    function mint(address _beneficiary, string calldata _tokenUri) external onlyOwner returns (uint256) {
 
         // Valid args
-        _assertMintingParamsValid(_tokenUri, _msgSender());
+        _assertMintingParamsValid(_tokenUri, _beneficiary);
 
         uint256 newTokenId = _tokenIds.current();
 
         // Mint token and set token URI
         _safeMint(_beneficiary, newTokenId);
         _setTokenURI(newTokenId, _tokenUri);
-        
-        // Send ETH to fee recipient
-        feeRecipient.transfer(msg.value);
-
-        creators[newTokenId] = _msgSender();
 
         _tokenIds.increment();
         
         emit Minted(newTokenId, _beneficiary, _tokenUri, _msgSender());
 
         return newTokenId;
+    }
+
+    /**
+     @notice Burns a NFT
+     @dev Only the owner or an approved sender can call this method
+     @param _tokenId the token ID to burn
+     */
+    function burn(uint256 _tokenId) external onlyOwner{
+        _burn(_tokenId);
     }
 
 
@@ -110,34 +87,12 @@ contract Creath is ERC721URIStorage, Ownable {
     }
 
     /**
-     @notice Method for updating platform fee
-     @dev Only admin
-     @param _platformFee uint256 the platform fee to set
-     */
-    function updatePlatformFee(uint256 _platformFee) external onlyOwner {
-        platformFee = _platformFee;
-        emit UpdatePlatformFee(_platformFee);
-    }
-
-    /**
-     @notice Method for updating platform fee address
-     @dev Only admin
-     @param _platformFeeRecipient payable address the address to sends the funds to
-     */
-    function updatePlatformFeeRecipient(address payable _platformFeeRecipient) external onlyOwner {
-        feeRecipient = _platformFeeRecipient;
-        emit UpdatePlatformFeeRecipient(_platformFeeRecipient);
-    }
-
-    
-
-    /**
      @notice Checks that the URI is not empty and the designer is a real address
      @param _tokenUri URI supplied on minting
-     @param _designer Address supplied on minting
+     @param _creator Address supplied on minting
      */
-    function _assertMintingParamsValid(string calldata _tokenUri, address _designer) pure internal {
+    function _assertMintingParamsValid(string calldata _tokenUri, address _creator) pure internal {
         require(bytes(_tokenUri).length > 0, "_assertMintingParamsValid: Token URI is empty");
-        require(_designer != address(0), "_assertMintingParamsValid: Designer is zero address");
+        require(_creator != address(0), "_assertMintingParamsValid: Designer is zero address");
     }
 }

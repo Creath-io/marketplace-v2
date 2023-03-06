@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract SportrexTokenRegistry is Ownable {
+contract CreathTokenRegistry is Ownable {
   /// @dev Events of the contract
   event TokenAdded(address token);
   event TokenRemoved(address token);
@@ -18,7 +18,7 @@ contract SportrexTokenRegistry is Ownable {
   @param token ERC20 token address
   */
   function add(address token) external onlyOwner {
-    require(!enabled[token], "SportrexTokenRegistry:token already added");
+    require(!enabled[token], "CreathTokenRegistry:token already added");
     enabled[token] = true;
     emit TokenAdded(token);
   }
@@ -29,7 +29,7 @@ contract SportrexTokenRegistry is Ownable {
   @param token ERC20 token address
   */
   function remove(address token) external onlyOwner {
-    require(enabled[token], "SportrexTokenRegistry:token not exist");
+    require(enabled[token], "CreathTokenRegistry:token not exist");
     enabled[token] = false;
     emit TokenRemoved(token);
   }
