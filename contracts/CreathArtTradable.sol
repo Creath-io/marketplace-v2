@@ -11,7 +11,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
  * @title CreathArtTradable
  * CreathArtTradable - ERC721 contract that whitelists a trading address, and has minting functionality.
  */
-contract CreathArtTradable is ERC721,ERC721URIStorage, Ownable {
+contract CreathArtTradable is ERC721URIStorage, Ownable {
 
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
