@@ -21,37 +21,15 @@ interface ICreathAddressRegistry {
     function factory() external view returns (address);
 
     function tokenRegistry() external view returns (address);
-
-    function priceFeed() external view returns (address);
-
 }
 
-interface ICreathAuction {
-    function auctions(address, uint256)
-        external
-        view
-        returns (
-            address,
-            address,
-            uint256,
-            uint256,
-            uint256,
-            bool
-        );
-}
 
-interface ICreathNFTFactory {
+interface ICreathArtFactory {
     function exists(address) external view returns (bool);
 }
 
 interface ICreathTokenRegistry {
     function enabled(address) external view returns (bool);
-}
-
-interface ICreathPriceFeed {
-    function ETH() external view returns (address);
-
-    function getPrice(address) external view returns (int256, uint8);
 }
 
 
@@ -79,7 +57,6 @@ ReentrancyGuardUpgradeable {
         address indexed nft,
         uint256 tokenId,
         address payToken,
-        int256 unitPrice,
         uint256 price
     );
     event ItemUpdated(
@@ -94,21 +71,10 @@ ReentrancyGuardUpgradeable {
         address indexed nft,
         uint256 tokenId
     );
-    event OfferCreated(
-        address indexed creator,
-        address indexed nft,
-        uint256 tokenId,
-        address payToken,
-        uint256 price,
-        uint256 deadline
-    );
-    event OfferCanceled(
-        address indexed creator,
-        address indexed nft,
-        uint256 tokenId
-    );
+
     event UpdatePlatformFee(uint16 platformFee);
     event UpdatePlatformFeeRecipient(address payable platformFeeRecipient);
+
 
     /// @notice Structure for listed items
     struct Listing {
@@ -117,12 +83,6 @@ ReentrancyGuardUpgradeable {
         uint256 startingTime;
     }
 
-    /// @notice Structure for offer
-    struct Offer {
-        IERC20Upgradeable payToken;
-        uint256 price;
-        uint256 deadline;
-    }
 
     struct CollectionRoyalty {
         uint16 royalty;
@@ -132,8 +92,8 @@ ReentrancyGuardUpgradeable {
 
     bytes4 private constant INTERFACE_ID_ERC721 = 0x80ac58cd;
 
-    /// @notice NftAddress -> Token ID -> Minter
-    mapping(address => mapping(uint256 => address)) public minters;
+    /// @notice NftAddress -> Token ID -> Artist
+    mapping(address => mapping(uint256 => address)) public artists;
 
     /// @notice NftAddress -> Token ID -> Royalty
     mapping(address => mapping(uint256 => uint16)) public royalties;
@@ -141,10 +101,6 @@ ReentrancyGuardUpgradeable {
     /// @notice NftAddress -> Token ID -> Owner -> Listing item
     mapping(address => mapping(uint256 => mapping(address => Listing)))
         public listings;
-
-    /// @notice NftAddress -> Token ID -> Offerer -> Offer
-    mapping(address => mapping(uint256 => mapping(address => Offer)))
-        public offers;
 
     /// @notice Platform fee
     uint16 public platformFee;
@@ -192,31 +148,7 @@ ReentrancyGuardUpgradeable {
         _;
     }
 
-    modifier offerExists(
-        address _nftAddress,
-        uint256 _tokenId,
-        address _creator
-    ) {
-        Offer memory offer = offers[_nftAddress][_tokenId][_creator];
-        require(
-            offer.price > 0 && offer.deadline > _getNow(),
-            "Creath Marketplace:offer not exists or expired"
-        );
-        _;
-    }
 
-    modifier offerNotExists(
-        address _nftAddress,
-        uint256 _tokenId,
-        address _creator
-    ) {
-        Offer memory offer = offers[_nftAddress][_tokenId][_creator];
-        require(
-            offer.price <= 0 || offer.deadline <= _getNow(),
-            "Creath Marketplace:offer already created"
-        );
-        _;
-    }
 
     /// @notice Contract initializer
     function initialize(address payable _feeRecipient, uint16 _platformFee)
@@ -354,29 +286,29 @@ ReentrancyGuardUpgradeable {
             feeAmount
         );
 
-        address minter = minters[_nftAddress][_tokenId];
+        address artist = artists[_nftAddress][_tokenId];
         uint16 royalty = royalties[_nftAddress][_tokenId];
-        if (minter != address(0) && royalty != 0) {
+        if (artist != address(0) && royalty != 0) {
             uint256 royaltyFee = price.sub(feeAmount).mul(royalty).div(10000);
 
             IERC20Upgradeable(_payToken).safeTransferFrom(
                 _msgSender(),
-                minter,
+                artist,
                 royaltyFee
             );
 
             feeAmount = feeAmount.add(royaltyFee);
         } else {
-            minter = collectionRoyalties[_nftAddress].feeRecipient;
+            artist = collectionRoyalties[_nftAddress].feeRecipient;
             royalty = collectionRoyalties[_nftAddress].royalty;
-            if (minter != address(0) && royalty != 0) {
+            if (artist != address(0) && royalty != 0) {
                 uint256 royaltyFee = price.sub(feeAmount).mul(royalty).div(
                     10000
                 );
 
                 IERC20Upgradeable(_payToken).safeTransferFrom(
                     _msgSender(),
-                    minter,
+                    artist,
                     royaltyFee
                 );
 
@@ -405,139 +337,11 @@ ReentrancyGuardUpgradeable {
             _nftAddress,
             _tokenId,
             _payToken,
-            getPrice(_payToken),
             price
         );
         delete (listings[_nftAddress][_tokenId][_owner]);
     }
 
-    /// @notice Method for offering item
-    /// @param _nftAddress NFT contract address
-    /// @param _tokenId TokenId
-    /// @param _payToken Paying token
-    /// @param _price Price
-    /// @param _deadline Offer expiration
-    function createOffer(
-        address _nftAddress,
-        uint256 _tokenId,
-        IERC20Upgradeable _payToken,
-        uint256 _price,
-        uint256 _deadline
-    ) external offerNotExists(_nftAddress, _tokenId, _msgSender()) {
-        require(
-            IERC165Upgradeable(_nftAddress).supportsInterface(INTERFACE_ID_ERC721),
-            "Creath Marketplace:invalid nft address"
-        );
-
-        ICreathAuction auction = ICreathAuction(addressRegistry.auction());
-
-        (, , , uint256 startTime, , bool resulted) = auction.auctions(
-            _nftAddress,
-            _tokenId
-        );
-
-        require(
-            startTime == 0 || resulted == true,
-            "Creath Marketplace:cannot place an offer if auction is going on"
-        );
-
-        require(_deadline > _getNow(), "Creath Marketplace:invalid expiration");
-
-        _validPayToken(address(_payToken));
-
-        offers[_nftAddress][_tokenId][_msgSender()] = Offer(
-            _payToken,
-            _price,
-            _deadline
-        );
-
-        emit OfferCreated(
-            _msgSender(),
-            _nftAddress,
-            _tokenId,
-            address(_payToken),
-            _price,
-            _deadline
-        );
-    }
-
-    /// @notice Method for canceling the offer
-    /// @param _nftAddress NFT contract address
-    /// @param _tokenId TokenId
-    function cancelOffer(address _nftAddress, uint256 _tokenId)
-        external
-        offerExists(_nftAddress, _tokenId, _msgSender())
-    {
-        delete (offers[_nftAddress][_tokenId][_msgSender()]);
-        emit OfferCanceled(_msgSender(), _nftAddress, _tokenId);
-    }
-
-    /// @notice Method for accepting the offer
-    /// @param _nftAddress NFT contract address
-    /// @param _tokenId TokenId
-    /// @param _creator Offer creator address
-    function acceptOffer(
-        address _nftAddress,
-        uint256 _tokenId,
-        address _creator
-    ) external nonReentrant offerExists(_nftAddress, _tokenId, _creator) {
-        Offer memory offer = offers[_nftAddress][_tokenId][_creator];
-
-        _validOwner(_nftAddress, _tokenId, _msgSender());
-
-        uint256 price = offer.price;
-        uint256 feeAmount = price.mul(platformFee).div(1e3);
-        uint256 royaltyFee;
-
-        offer.payToken.safeTransferFrom(_creator, feeReceipient, feeAmount);
-
-        address minter = minters[_nftAddress][_tokenId];
-        uint16 royalty = royalties[_nftAddress][_tokenId];
-
-        if (minter != address(0) && royalty != 0) {
-            royaltyFee = price.sub(feeAmount).mul(royalty).div(10000);
-            offer.payToken.safeTransferFrom(_creator, minter, royaltyFee);
-            feeAmount = feeAmount.add(royaltyFee);
-        } else {
-            minter = collectionRoyalties[_nftAddress].feeRecipient;
-            royalty = collectionRoyalties[_nftAddress].royalty;
-            if (minter != address(0) && royalty != 0) {
-                royaltyFee = price.sub(feeAmount).mul(royalty).div(10000);
-                offer.payToken.safeTransferFrom(_creator, minter, royaltyFee);
-                feeAmount = feeAmount.add(royaltyFee);
-            }
-        }
-
-        offer.payToken.safeTransferFrom(
-            _creator,
-            _msgSender(),
-            price.sub(feeAmount)
-        );
-
-        // Transfer NFT to buyer
-        if (IERC165Upgradeable(_nftAddress).supportsInterface(INTERFACE_ID_ERC721)) {
-            IERC721Upgradeable(_nftAddress).safeTransferFrom(
-                _msgSender(),
-                _creator,
-                _tokenId
-            );
-        }
-        
-        emit ItemSold(
-            _msgSender(),
-            _creator,
-            _nftAddress,
-            _tokenId,
-            address(offer.payToken),
-            getPrice(address(offer.payToken)),
-            offer.price
-        );
-
-        emit OfferCanceled(_creator, _nftAddress, _tokenId);
-
-        delete (listings[_nftAddress][_tokenId][_msgSender()]);
-        delete (offers[_nftAddress][_tokenId][_creator]);
-    }
 
 
     /// @notice Method for setting royalty
@@ -577,33 +381,10 @@ ReentrancyGuardUpgradeable {
     function _isCreathNFT(address _nftAddress) internal view returns (bool) {
         return
             addressRegistry.creath() == _nftAddress ||
-            ICreathNFTFactory(addressRegistry.factory()).exists(_nftAddress);
+            ICreathArtFactory(addressRegistry.factory()).exists(_nftAddress);
     }
 
-    /**
-     @notice Method for getting price for pay token
-     @param _payToken Paying token
-     */
-    function getPrice(address _payToken) public view returns (int256) {
-        int256 unitPrice;
-        uint8 decimals;
-        ICreathPriceFeed priceFeed = ICreathPriceFeed(
-            addressRegistry.priceFeed()
-        );
-
-        if (_payToken == address(0)) {
-            (unitPrice, decimals) = priceFeed.getPrice(priceFeed.ETH());
-        } else {
-            (unitPrice, decimals) = priceFeed.getPrice(_payToken);
-        }
-        if (decimals < 18) {
-            unitPrice = unitPrice * (int256(10)**(18 - decimals));
-        } else {
-            unitPrice = unitPrice / (int256(10)**(decimals - 18));
-        }
-
-        return unitPrice;
-    }
+   
 
     /**
      @notice Method for updating platform fee

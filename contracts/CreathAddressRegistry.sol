@@ -17,14 +17,12 @@ contract CreathAddressRegistry is Ownable {
     /// @notice CreathMarketplace contract
     address public marketplace;
 
-    /// @notice CreathNFTFactory contract
+    /// @notice CreathArtFactory contract
     address public factory;
 
     /// @notice CreathTokenRegistry contract
     address public tokenRegistry;
 
-     /// @notice FantomPriceFeed contract
-    address public priceFeed;
 
 
     /**
@@ -57,10 +55,10 @@ contract CreathAddressRegistry is Ownable {
 
 
     /**
-     @notice Update CreathNFTFactory contract
+     @notice Update CreathArtFactory contract
      @dev Only admin
      */
-    function updateNFTFactory(address _factory) external onlyOwner {
+    function updateArtFactory(address _factory) external onlyOwner {
         factory = _factory;
     }
 
