@@ -16,8 +16,6 @@ import "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.
 interface ICreathAddressRegistry {
     function creath() external view returns (address);
 
-    function auction() external view returns (address);
-
     function factory() external view returns (address);
 
     function tokenRegistry() external view returns (address);

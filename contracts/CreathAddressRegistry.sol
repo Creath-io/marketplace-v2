@@ -11,9 +11,6 @@ contract CreathAddressRegistry is Ownable {
     /// @notice Creath contract
     address public creath;
 
-    /// @notice CreathAuction contract
-    address public auction;
-
     /// @notice CreathMarketplace contract
     address public marketplace;
 
@@ -23,7 +20,17 @@ contract CreathAddressRegistry is Ownable {
     /// @notice CreathTokenRegistry contract
     address public tokenRegistry;
 
-
+    constructor(
+        address _creath,
+        address _marketplace,
+        address _factory,
+        address _tokenRegistry
+    ){
+        creath = _creath;
+        marketplace = _marketplace;
+        factory = _factory;
+        tokenRegistry = _tokenRegistry;
+    }
 
     /**
      @notice Update Creath contract
@@ -35,14 +42,6 @@ contract CreathAddressRegistry is Ownable {
             "Not ERC721"
         );
         creath = _creath;
-    }
-
-    /**
-     @notice Update CreathAuction contract
-     @dev Only admin
-     */
-    function updateAuction(address _auction) external onlyOwner {
-        auction = _auction;
     }
 
     /**

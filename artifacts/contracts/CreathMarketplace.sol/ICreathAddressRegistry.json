@@ -5,19 +5,6 @@
   "abi": [
     {
       "inputs": [],
-      "name": "auction",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
       "name": "creath",
       "outputs": [
         {

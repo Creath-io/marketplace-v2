@@ -2,6 +2,7 @@ require("dotenv").config();
 
 require("@nomiclabs/hardhat-etherscan");
 require("@nomiclabs/hardhat-waffle");
+require("@openzeppelin/hardhat-upgrades");
 require("hardhat-gas-reporter");
 require("solidity-coverage");
 
@@ -18,6 +19,8 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
 
+const mnemonic = process.env.MNEMONIC;
+
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
@@ -30,13 +33,53 @@ module.exports = {
     },
   },
   networks: {
-    hardhat: {
-      allowUnlimitedContractSize: true,
+    goerli: {
+      url: "https://rpc.sepolia.org",
+      chainId: 11155111,
+      accounts: {
+        mnemonic,
+        path: "m/44'/60'/0'/0",
+        inittialIndex: 0,
+        count: 10,
+      },
     },
-    rinkeby: {
-      url: process.env.RINKEBY_URL || "",
-      accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    polygon: {
+      url: "https://polygon-rpc.com",
+      chainId: 137,
+      accounts: {
+        mnemonic,
+        path: "m/44'/60'/0'/0",
+        inittialIndex: 0,
+        count: 10,
+      },
+    },
+    localhost: {
+      url: `http://localhost:8545`,
+      accounts: {
+        mnemonic,
+        path: "m/44'/60'/0'/0",
+        inittialIndex: 0,
+        count: 10,
+      },
+      timeout: 150000,
+    },
+    mainnet: {
+      url: "https://eth.llamarpc.com",
+      chainId: 1,
+      accounts: {
+        mnemonic,
+        path: "m/44'/60'/0'/0",
+        inittialIndex: 1,
+        count: 10,
+      },
+    },
+    hardhat: {
+      accounts: {
+        mnemonic,
+        path: "m/44'/60'/0'/0",
+        inittialIndex: 0,
+        count: 10,
+      },
     },
   },
   gasReporter: {

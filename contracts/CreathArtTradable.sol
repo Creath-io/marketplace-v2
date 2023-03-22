@@ -24,7 +24,6 @@ contract CreathArtTradable is ERC721URIStorage, Ownable {
         address minter
     );
 
-    address auction;
     address marketplace;
 
 
@@ -32,10 +31,8 @@ contract CreathArtTradable is ERC721URIStorage, Ownable {
     constructor(
         string memory _name,
         string memory _symbol,
-        address _auction,
         address _marketplace
     ) public ERC721(_name, _symbol) {
-        auction = _auction;
         marketplace = _marketplace;
 
         _tokenIds.increment();
@@ -83,7 +80,6 @@ contract CreathArtTradable is ERC721URIStorage, Ownable {
     {
         // Whitelist creath auction, marketplace, contracts for easy trading.
         if (
-            auction == operator ||
             marketplace == operator
         ) {
             return true;

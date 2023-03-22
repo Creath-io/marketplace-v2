@@ -13,9 +13,6 @@ contract CreathArtFactory is Ownable {
     /// @notice Creath marketplace contract address;
     address public marketplace;
 
-    /// @notice Creath auction contract address;
-    address public auction;
-
     /// @notice NFT Address => Bool
     mapping(address => bool) public exists;
 
@@ -23,21 +20,11 @@ contract CreathArtFactory is Ownable {
 
     /// @notice Contract constructor
     constructor(
-        address _marketplace,
-        address _auction
+        address _marketplace
     ) public {
         marketplace = _marketplace;
-        auction = _auction;
     }
 
-     /**
-    @notice Update auction contract
-    @dev Only admin
-    @param _auction address the auction contract address to set
-    */
-    function updateAuction(address _auction) external onlyOwner {
-        auction = _auction;
-    }
 
     /**
     @notice Update marketplace contract
@@ -60,11 +47,10 @@ contract CreathArtFactory is Ownable {
         CreathArtTradable nft = new CreathArtTradable(
             _name,
             _symbol,
-            marketplace,
-            auction
+            marketplace
         );
         exists[address(nft)] = true;
-        nft.transferOwnership(marketplace);
+        nft.transferOwnership(owner());
         emit ContractCreated(_msgSender(), address(nft));
         return address(nft);
     }

@@ -1,0 +1,268 @@
+{
+  "manifestVersion": "3.2",
+  "proxies": [
+    {
+      "address": "0xe2f965D2D4F89Bcaa2F8Edf9f4Eaf2Ce0A0AF328",
+      "txHash": "0xe5790963ff0a1a0b7defd634f3b7fd58148288a28881c4f462b68d9552fa7e16",
+      "kind": "uups"
+    }
+  ],
+  "impls": {
+    "d6026ec0705b9d0a09c109a6f5113a6aa5e37c5f87c20eb825edde42e5158508": {
+      "address": "0xac3c475db75c8fc105B8EA3e80d0782c0ba8787c",
+      "txHash": "0x9039b0a711c96ab83d643738f220f0945dc02d9401e658e350ac5b4a914fe752",
+      "layout": {
+        "solcVersion": "0.8.4",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:62",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:67"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ERC1967UpgradeUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/ERC1967/ERC1967UpgradeUpgradeable.sol:211"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "UUPSUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol:107"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ContextUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol:36"
+          },
+          {
+            "label": "_owner",
+            "offset": 0,
+            "slot": "151",
+            "type": "t_address",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:22"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "152",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:94"
+          },
+          {
+            "label": "_status",
+            "offset": 0,
+            "slot": "201",
+            "type": "t_uint256",
+            "contract": "ReentrancyGuardUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol:38"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "202",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "ReentrancyGuardUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol:80"
+          },
+          {
+            "label": "artists",
+            "offset": 0,
+            "slot": "251",
+            "type": "t_mapping(t_address,t_mapping(t_uint256,t_address))",
+            "contract": "CreathMarketplace",
+            "src": "contracts/CreathMarketplace.sol:94"
+          },
+          {
+            "label": "royalties",
+            "offset": 0,
+            "slot": "252",
+            "type": "t_mapping(t_address,t_mapping(t_uint256,t_uint16))",
+            "contract": "CreathMarketplace",
+            "src": "contracts/CreathMarketplace.sol:97"
+          },
+          {
+            "label": "listings",
+            "offset": 0,
+            "slot": "253",
+            "type": "t_mapping(t_address,t_mapping(t_uint256,t_mapping(t_address,t_struct(Listing)8458_storage)))",
+            "contract": "CreathMarketplace",
+            "src": "contracts/CreathMarketplace.sol:100"
+          },
+          {
+            "label": "platformFee",
+            "offset": 0,
+            "slot": "254",
+            "type": "t_uint16",
+            "contract": "CreathMarketplace",
+            "src": "contracts/CreathMarketplace.sol:104"
+          },
+          {
+            "label": "feeReceipient",
+            "offset": 2,
+            "slot": "254",
+            "type": "t_address_payable",
+            "contract": "CreathMarketplace",
+            "src": "contracts/CreathMarketplace.sol:107"
+          },
+          {
+            "label": "collectionRoyalties",
+            "offset": 0,
+            "slot": "255",
+            "type": "t_mapping(t_address,t_struct(CollectionRoyalty)8465_storage)",
+            "contract": "CreathMarketplace",
+            "src": "contracts/CreathMarketplace.sol:110"
+          },
+          {
+            "label": "addressRegistry",
+            "offset": 0,
+            "slot": "256",
+            "type": "t_contract(ICreathAddressRegistry)8360",
+            "contract": "CreathMarketplace",
+            "src": "contracts/CreathMarketplace.sol:113"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_address_payable": {
+            "label": "address payable",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]",
+            "numberOfBytes": "1568"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_contract(ICreathAddressRegistry)8360": {
+            "label": "contract ICreathAddressRegistry",
+            "numberOfBytes": "20"
+          },
+          "t_mapping(t_address,t_mapping(t_uint256,t_address))": {
+            "label": "mapping(address => mapping(uint256 => address))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_mapping(t_uint256,t_mapping(t_address,t_struct(Listing)8458_storage)))": {
+            "label": "mapping(address => mapping(uint256 => mapping(address => struct CreathMarketplace.Listing)))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_mapping(t_uint256,t_uint16))": {
+            "label": "mapping(address => mapping(uint256 => uint16))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_struct(CollectionRoyalty)8465_storage)": {
+            "label": "mapping(address => struct CreathMarketplace.CollectionRoyalty)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_struct(Listing)8458_storage)": {
+            "label": "mapping(address => struct CreathMarketplace.Listing)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_address)": {
+            "label": "mapping(uint256 => address)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_mapping(t_address,t_struct(Listing)8458_storage))": {
+            "label": "mapping(uint256 => mapping(address => struct CreathMarketplace.Listing))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_uint16)": {
+            "label": "mapping(uint256 => uint16)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(CollectionRoyalty)8465_storage": {
+            "label": "struct CreathMarketplace.CollectionRoyalty",
+            "members": [
+              {
+                "label": "royalty",
+                "type": "t_uint16",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "creator",
+                "type": "t_address",
+                "offset": 2,
+                "slot": "0"
+              },
+              {
+                "label": "feeRecipient",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_struct(Listing)8458_storage": {
+            "label": "struct CreathMarketplace.Listing",
+            "members": [
+              {
+                "label": "payToken",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "price",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "startingTime",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "2"
+              }
+            ],
+            "numberOfBytes": "96"
+          },
+          "t_uint16": {
+            "label": "uint16",
+            "numberOfBytes": "2"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    }
+  }
+}
