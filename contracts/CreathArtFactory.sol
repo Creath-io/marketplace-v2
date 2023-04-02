@@ -21,7 +21,7 @@ contract CreathArtFactory is Ownable {
     /// @notice Contract constructor
     constructor(
         address _marketplace
-    ) public {
+    ) {
         marketplace = _marketplace;
     }
 

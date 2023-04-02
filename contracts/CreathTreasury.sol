@@ -11,11 +11,10 @@ contract CreathTreasury is AccessControl{
 
     //marketplace address
     address public marketplace;
-    // usdt address
-    IERC20 public token;
+    
+    //admin address. 
+    address private ADMIN;
 
-    //create a mapping so other addresses can interact with this wallet. 
-    mapping(address => bool) private _admins;
 
     // Event triggered once an address withdraws from the contract
     event Withdraw(address indexed user, uint amount);
@@ -33,8 +32,7 @@ contract CreathTreasury is AccessControl{
 
     constructor(address _admin){
         _setupRole("admin", _admin); 
-        _admins[_admin] = true;
-        //token = IERC20(_token);
+        ADMIN = _admin;
     }
 
 
@@ -56,34 +54,36 @@ contract CreathTreasury is AccessControl{
 
 
     //this function is used to add admin of the treasury.  OnlyOwner can add addresses.
-    function addAdmin(address admin) 
+    function updateAdmin(address admin) 
         onlyRole("admin")
-        public {
-       _admins[admin] = true;
+        external {
         _grantRole("admin", admin);
-    }
-    
-    //remove an admin from the treasury.
-    function removeAdmin(address admin)
-        onlyRole("admin")
-        public {
-        _admins[admin] = false;   
-        _revokeRole("admin", admin);
+        _revokeRole("admin", ADMIN);
+        ADMIN = admin;
     }
 
 
     /**
-     * @notice withdraw cro
-     * @param _amount the withdrawal amount
+     * @notice withdraw other token
+     * @param _token the token address
+     * @param _to the spender address
+     * @param _amount the deposited amount
      */
-    function withdraw(address _to, uint _amount) public onlyAuthorized{
-        token.safeTransfer(_to, _amount);
-        emit Withdraw(msg.sender, _amount);
+    function withdrawToken(address _token, address _to, uint _amount) 
+        public 
+        onlyAuthorized{
+        IERC20(_token).safeTransfer(_to, _amount);
+        emit Withdraw(_to, _amount);
     }
 
-    function updateToken(address _token) external onlyRole("admin") {
-      token = IERC20(_token);
-    } 
+    /**
+     * @notice withdraw eth
+     * @param _amount the withdrawal amount
+     */
+    function withdraw(uint _amount, address _to) public onlyAuthorized{
+        payable(_to).transfer(_amount);
+        emit Withdraw(msg.sender, _amount);
+    }
 
     receive () external payable{
         

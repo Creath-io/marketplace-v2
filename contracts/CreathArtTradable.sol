@@ -32,7 +32,7 @@ contract CreathArtTradable is ERC721URIStorage, Ownable {
         string memory _name,
         string memory _symbol,
         address _marketplace
-    ) public ERC721(_name, _symbol) {
+    ) ERC721(_name, _symbol) {
         marketplace = _marketplace;
 
         _tokenIds.increment();
