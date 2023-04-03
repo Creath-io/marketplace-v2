@@ -30,11 +30,9 @@ contract CreathTreasury is AccessControl{
     }
 
 
-    constructor(address _admin, address _marketplace){
+    constructor(address _admin){
         _setupRole("admin", _admin); 
-        _setupRole("marketplace", _marketplace);
         ADMIN = _admin;
-        marketplace = _marketplace;
     }
 
 
@@ -65,6 +63,7 @@ contract CreathTreasury is AccessControl{
     }
 
     function updateMarketplace(address _marketplace) external onlyRole("admin"){
+        _setupRole("marketplace", _marketplace);
         marketplace = _marketplace;
     }
 
