@@ -45,7 +45,7 @@ contract CreathArtTradable is ERC721URIStorage, Ownable {
     function mint(address _to,string calldata _tokenUri) external onlyOwner {
 
         uint256 newTokenId = _tokenIds.current();
-        _safeMint(marketplace, newTokenId);
+        _safeMint(_to, newTokenId);
         _setTokenURI(newTokenId, _tokenUri);
         _tokenIds.increment();
 
@@ -72,7 +72,7 @@ contract CreathArtTradable is ERC721URIStorage, Ownable {
     /**
      * Override isApprovedForAll to whitelist Creath contracts to enable gas-less listings.
      */
-    function isApprovedForAll(address owner, address operator)
+    function isApprovedForAll(address _owner, address operator)
         override
         public
         view
@@ -85,7 +85,7 @@ contract CreathArtTradable is ERC721URIStorage, Ownable {
             return true;
         }
 
-        return super.isApprovedForAll(owner, operator);
+        return super.isApprovedForAll(_owner, operator);
     }
 
     /**
@@ -93,8 +93,8 @@ contract CreathArtTradable is ERC721URIStorage, Ownable {
      */
     function _isApprovedOrOwner(address spender, uint256 tokenId) override internal view returns (bool) {
         require(_exists(tokenId), "ERC721: operator query for nonexistent token");
-        address owner = ERC721.ownerOf(tokenId);
-        if (isApprovedForAll(owner, spender)) return true;
+        address _owner = ERC721.ownerOf(tokenId);
+        if (isApprovedForAll(_owner, spender)) return true;
         return super._isApprovedOrOwner(spender, tokenId);
     }
 }

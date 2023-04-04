@@ -12,6 +12,8 @@ contract Creath is ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
+    address marketplace;
+
 
     /// @dev Events of the contract
     event Minted(
@@ -23,8 +25,9 @@ contract Creath is ERC721URIStorage, Ownable {
 
 
     /// @notice Contract constructor
-    constructor() ERC721("Creath Marketplace", "CREATH") {
+    constructor(address _marketplace) ERC721("Creath Marketplace", "CREATH") {
         _tokenIds.increment();
+        marketplace = _marketplace;
     }
 
     /**
@@ -34,9 +37,6 @@ contract Creath is ERC721URIStorage, Ownable {
      @return uint256 The token ID of the token that was minted
      */
     function mint(address _beneficiary, string calldata _tokenUri) external onlyOwner returns (uint256) {
-
-        // Valid args
-        _assertMintingParamsValid(_tokenUri, _beneficiary);
 
         uint256 newTokenId = _tokenIds.current();
 
@@ -88,12 +88,31 @@ contract Creath is ERC721URIStorage, Ownable {
     }
 
     /**
-     @notice Checks that the URI is not empty and the designer is a real address
-     @param _tokenUri URI supplied on minting
-     @param _creator Address supplied on minting
+     * Override isApprovedForAll to whitelist Creath contracts to enable gas-less listings.
      */
-    function _assertMintingParamsValid(string calldata _tokenUri, address _creator) pure internal {
-        require(bytes(_tokenUri).length > 0, "_assertMintingParamsValid: Token URI is empty");
-        require(_creator != address(0), "_assertMintingParamsValid: Designer is zero address");
+    function isApprovedForAll(address _owner, address operator)
+        override
+        public
+        view
+        returns (bool)
+    {
+        // Whitelist creath auction, marketplace, contracts for easy trading.
+        if (
+            marketplace == operator
+        ) {
+            return true;
+        }
+
+        return super.isApprovedForAll(_owner, operator);
+    }
+
+    /**
+     * Override _isApprovedOrOwner to whitelist creath contracts to enable gas-less listings.
+     */
+    function _isApprovedOrOwner(address spender, uint256 tokenId) override internal view returns (bool) {
+        require(_exists(tokenId), "ERC721: operator query for nonexistent token");
+        address _owner = ERC721.ownerOf(tokenId);
+        if (isApprovedForAll(_owner, spender)) return true;
+        return super._isApprovedOrOwner(spender, tokenId);
     }
 }

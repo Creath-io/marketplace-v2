@@ -138,7 +138,11 @@ ReentrancyGuardUpgradeable {
     ) external onlyOwner notListed(_nftAddress, _tokenId) {
         if (IERC165Upgradeable(_nftAddress).supportsInterface(INTERFACE_ID_ERC721)) {
             IERC721Upgradeable nft = IERC721Upgradeable(_nftAddress);
-            require(nft.ownerOf(_tokenId) == address(this), "Creath Marketplace:not owning item");
+            require(nft.ownerOf(_tokenId) == msg.sender, "Creath Marketplace:not owning item");
+            require(
+                nft.isApprovedForAll(owner(), address(this)),
+                "item not approved"
+            );
         } else {
             revert("Creath Marketplace:invalid nft address");
         }
@@ -223,8 +227,7 @@ ReentrancyGuardUpgradeable {
 
         // Transfer NFT to buyer
         if (IERC165Upgradeable(_nftAddress).supportsInterface(INTERFACE_ID_ERC721)) {
-            IERC721Upgradeable(_nftAddress).approve(buyer, _tokenId);
-            IERC721Upgradeable(_nftAddress).transferFrom(address(this), buyer, _tokenId);      
+            IERC721Upgradeable(_nftAddress).transferFrom(owner(), buyer, _tokenId);      
         } 
 
         emit ItemSold(
