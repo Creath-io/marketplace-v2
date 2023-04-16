@@ -212,7 +212,7 @@ ReentrancyGuardUpgradeable {
     ) private {
         uint listedItem = listings[_nftAddress][_tokenId];
 
-        uint256 feeAmount = listedItem.mul(platformFee).div(1e3);
+        uint256 feeAmount = (listedItem.mul(platformFee)).div(100);
 
         IERC20Upgradeable(paymentToken).safeTransferFrom(
             _msgSender(),
