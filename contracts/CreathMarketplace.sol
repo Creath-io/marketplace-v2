@@ -78,7 +78,12 @@ ReentrancyGuardUpgradeable {
     /// @notice Platform fee receipient
     address payable public feeReceipient;
 
-    mapping(address => uint256[]) private collectors;
+    struct Item{
+        uint256 tokenId;
+        address nft_address;
+    }
+
+    mapping(address => Item[]) private bought_items;
 
 
     modifier isListed(
@@ -221,7 +226,7 @@ ReentrancyGuardUpgradeable {
         );
 
         address artist = artists[_nftAddress][_tokenId];
-        collectors[buyer].push(_tokenId);
+        bought_items[buyer].push(Item(_tokenId, _nftAddress));
 
         ITreasury(feeReceipient).withdrawToken(address(paymentToken), artist, listedItem.sub(feeAmount));
         
@@ -266,8 +271,8 @@ ReentrancyGuardUpgradeable {
         emit UpdatePlatformFeeRecipient(_platformFeeRecipient);
     }
 
-    function getCollectorData(address _user)external view returns(uint256[] memory){
-        return collectors[_user];
+    function getCollectorData(address _user)external view returns(Item[] memory){
+        return bought_items[_user];
     }
 
 
