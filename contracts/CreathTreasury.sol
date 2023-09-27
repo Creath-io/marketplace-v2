@@ -1,10 +1,8 @@
+//SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
 // File: @openzeppelin/contracts/utils/Address.sol
 
-
-// OpenZeppelin Contracts (last updated v4.9.0) (utils/Address.sol)
-
-pragma solidity ^0.8.1;
 
 /**
  * @dev Collection of functions related to the address type
@@ -249,10 +247,6 @@ library Address {
 // File: @openzeppelin/contracts/token/ERC20/extensions/IERC20Permit.sol
 
 
-// OpenZeppelin Contracts (last updated v4.9.0) (token/ERC20/extensions/IERC20Permit.sol)
-
-pragma solidity ^0.8.0;
-
 /**
  * @dev Interface of the ERC20 Permit extension allowing approvals to be made via signatures, as defined in
  * https://eips.ethereum.org/EIPS/eip-2612[EIP-2612].
@@ -310,11 +304,6 @@ interface IERC20Permit {
 }
 
 // File: @openzeppelin/contracts/token/ERC20/IERC20.sol
-
-
-// OpenZeppelin Contracts (last updated v4.9.0) (token/ERC20/IERC20.sol)
-
-pragma solidity ^0.8.0;
 
 /**
  * @dev Interface of the ERC20 standard as defined in the EIP.
@@ -392,10 +381,6 @@ interface IERC20 {
 
 // File: @openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol
 
-
-// OpenZeppelin Contracts (last updated v4.9.3) (token/ERC20/utils/SafeERC20.sol)
-
-pragma solidity ^0.8.0;
 
 
 
@@ -538,10 +523,6 @@ library SafeERC20 {
 // File: @openzeppelin/contracts/utils/introspection/IERC165.sol
 
 
-// OpenZeppelin Contracts v4.4.1 (utils/introspection/IERC165.sol)
-
-pragma solidity ^0.8.0;
-
 /**
  * @dev Interface of the ERC165 standard, as defined in the
  * https://eips.ethereum.org/EIPS/eip-165[EIP].
@@ -565,10 +546,6 @@ interface IERC165 {
 
 // File: @openzeppelin/contracts/utils/introspection/ERC165.sol
 
-
-// OpenZeppelin Contracts v4.4.1 (utils/introspection/ERC165.sol)
-
-pragma solidity ^0.8.0;
 
 
 /**
@@ -596,10 +573,6 @@ abstract contract ERC165 is IERC165 {
 
 // File: @openzeppelin/contracts/utils/math/SignedMath.sol
 
-
-// OpenZeppelin Contracts (last updated v4.8.0) (utils/math/SignedMath.sol)
-
-pragma solidity ^0.8.0;
 
 /**
  * @dev Standard signed math utilities missing in the Solidity language.
@@ -642,10 +615,6 @@ library SignedMath {
 
 // File: @openzeppelin/contracts/utils/math/Math.sol
 
-
-// OpenZeppelin Contracts (last updated v4.9.0) (utils/math/Math.sol)
-
-pragma solidity ^0.8.0;
 
 /**
  * @dev Standard math utilities missing in the Solidity language.
@@ -985,11 +954,6 @@ library Math {
 // File: @openzeppelin/contracts/utils/Strings.sol
 
 
-// OpenZeppelin Contracts (last updated v4.9.0) (utils/Strings.sol)
-
-pragma solidity ^0.8.0;
-
-
 
 /**
  * @dev String operations.
@@ -1072,10 +1036,6 @@ library Strings {
 // File: @openzeppelin/contracts/utils/Context.sol
 
 
-// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)
-
-pragma solidity ^0.8.0;
-
 /**
  * @dev Provides information about the current execution context, including the
  * sender of the transaction and its data. While these are generally available
@@ -1098,10 +1058,6 @@ abstract contract Context {
 
 // File: @openzeppelin/contracts/access/IAccessControl.sol
 
-
-// OpenZeppelin Contracts v4.4.1 (access/IAccessControl.sol)
-
-pragma solidity ^0.8.0;
 
 /**
  * @dev External interface of AccessControl declared to support ERC165 detection.
@@ -1189,10 +1145,6 @@ interface IAccessControl {
 
 // File: @openzeppelin/contracts/access/AccessControl.sol
 
-
-// OpenZeppelin Contracts (last updated v4.9.0) (access/AccessControl.sol)
-
-pragma solidity ^0.8.0;
 
 
 
@@ -1439,9 +1391,6 @@ abstract contract AccessControl is Context, IAccessControl, ERC165 {
 
 // File: contracts/contracts/CreathTreasury.sol
 
-//SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
 
 
 
@@ -1460,7 +1409,7 @@ contract CreathTreasury is AccessControl{
     event Withdraw(address indexed user, uint amount);
 
     // Emitted when marketplace address is set
-    event MarketplaceSet( address _address);
+    event MarketplaceUpdated(address _address);
 
     // Restricted to authorised accounts.
     modifier onlyAuthorized() {
@@ -1503,8 +1452,11 @@ contract CreathTreasury is AccessControl{
     }
 
     function updateMarketplace(address _marketplace) external onlyRole("admin"){
+        require(_marketplace != marketplace);
         _setupRole("marketplace", _marketplace);
         marketplace = _marketplace;
+
+        emit MarketplaceUpdated(_marketplace);
     }
 
 

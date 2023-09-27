@@ -1,10 +1,10 @@
+//SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
 
 // File: @openzeppelin/contracts/utils/Counters.sol
 
 
-// OpenZeppelin Contracts v4.4.1 (utils/Counters.sol)
-
-pragma solidity ^0.8.0;
 
 /**
  * @title Counters
@@ -50,7 +50,7 @@ library Counters {
 
 // OpenZeppelin Contracts (last updated v4.8.0) (utils/math/SignedMath.sol)
 
-pragma solidity ^0.8.0;
+
 
 /**
  * @dev Standard signed math utilities missing in the Solidity language.
@@ -96,7 +96,7 @@ library SignedMath {
 
 // OpenZeppelin Contracts (last updated v4.9.0) (utils/math/Math.sol)
 
-pragma solidity ^0.8.0;
+
 
 /**
  * @dev Standard math utilities missing in the Solidity language.
@@ -438,7 +438,7 @@ library Math {
 
 // OpenZeppelin Contracts (last updated v4.9.0) (utils/Strings.sol)
 
-pragma solidity ^0.8.0;
+
 
 
 
@@ -525,7 +525,7 @@ library Strings {
 
 // OpenZeppelin Contracts v4.4.1 (utils/Context.sol)
 
-pragma solidity ^0.8.0;
+
 
 /**
  * @dev Provides information about the current execution context, including the
@@ -552,7 +552,7 @@ abstract contract Context {
 
 // OpenZeppelin Contracts (last updated v4.9.0) (access/Ownable.sol)
 
-pragma solidity ^0.8.0;
+
 
 
 /**
@@ -634,10 +634,6 @@ abstract contract Ownable is Context {
 
 // File: @openzeppelin/contracts/utils/Address.sol
 
-
-// OpenZeppelin Contracts (last updated v4.9.0) (utils/Address.sol)
-
-pragma solidity ^0.8.1;
 
 /**
  * @dev Collection of functions related to the address type
@@ -884,7 +880,7 @@ library Address {
 
 // OpenZeppelin Contracts (last updated v4.6.0) (token/ERC721/IERC721Receiver.sol)
 
-pragma solidity ^0.8.0;
+
 
 /**
  * @title ERC721 token receiver interface
@@ -914,7 +910,7 @@ interface IERC721Receiver {
 
 // OpenZeppelin Contracts v4.4.1 (utils/introspection/IERC165.sol)
 
-pragma solidity ^0.8.0;
+
 
 /**
  * @dev Interface of the ERC165 standard, as defined in the
@@ -942,7 +938,7 @@ interface IERC165 {
 
 // OpenZeppelin Contracts v4.4.1 (interfaces/IERC165.sol)
 
-pragma solidity ^0.8.0;
+
 
 
 // File: @openzeppelin/contracts/utils/introspection/ERC165.sol
@@ -950,7 +946,7 @@ pragma solidity ^0.8.0;
 
 // OpenZeppelin Contracts v4.4.1 (utils/introspection/ERC165.sol)
 
-pragma solidity ^0.8.0;
+
 
 
 /**
@@ -981,7 +977,7 @@ abstract contract ERC165 is IERC165 {
 
 // OpenZeppelin Contracts (last updated v4.9.0) (token/ERC721/IERC721.sol)
 
-pragma solidity ^0.8.0;
+
 
 
 /**
@@ -1115,7 +1111,7 @@ interface IERC721 is IERC165 {
 
 // OpenZeppelin Contracts v4.4.1 (interfaces/IERC721.sol)
 
-pragma solidity ^0.8.0;
+
 
 
 // File: @openzeppelin/contracts/interfaces/IERC4906.sol
@@ -1123,7 +1119,7 @@ pragma solidity ^0.8.0;
 
 // OpenZeppelin Contracts (last updated v4.9.0) (interfaces/IERC4906.sol)
 
-pragma solidity ^0.8.0;
+
 
 
 
@@ -1145,7 +1141,7 @@ interface IERC4906 is IERC165, IERC721 {
 
 // OpenZeppelin Contracts v4.4.1 (token/ERC721/extensions/IERC721Metadata.sol)
 
-pragma solidity ^0.8.0;
+
 
 
 /**
@@ -1174,7 +1170,7 @@ interface IERC721Metadata is IERC721 {
 
 // OpenZeppelin Contracts (last updated v4.9.0) (token/ERC721/ERC721.sol)
 
-pragma solidity ^0.8.0;
+
 
 
 
@@ -1642,7 +1638,7 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
 
 // OpenZeppelin Contracts (last updated v4.9.0) (token/ERC721/extensions/ERC721URIStorage.sol)
 
-pragma solidity ^0.8.0;
+
 
 
 
@@ -1717,7 +1713,7 @@ abstract contract ERC721URIStorage is IERC4906, ERC721 {
 
 
 
-pragma solidity ^0.8.0;
+
 
 
 
@@ -1789,7 +1785,7 @@ contract CreathArtTradable is ERC721URIStorage, Ownable {
      * Override isApprovedForAll to whitelist Creath contracts to enable gas-less listings.
      */
     function isApprovedForAll(address _owner, address operator)
-        override
+        override(IERC721)
         public
         view
         returns (bool)

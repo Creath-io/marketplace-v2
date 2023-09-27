@@ -1,10 +1,8 @@
+//SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
 // File: @openzeppelin/contracts-upgradeable/utils/introspection/IERC165Upgradeable.sol
 
-
-// OpenZeppelin Contracts v4.4.1 (utils/introspection/IERC165.sol)
-
-pragma solidity ^0.8.0;
 
 /**
  * @dev Interface of the ERC165 standard, as defined in the
@@ -30,17 +28,10 @@ interface IERC165Upgradeable {
 // File: @openzeppelin/contracts-upgradeable/interfaces/IERC165Upgradeable.sol
 
 
-// OpenZeppelin Contracts v4.4.1 (interfaces/IERC165.sol)
-
-pragma solidity ^0.8.0;
-
 
 // File: @openzeppelin/contracts-upgradeable/token/ERC721/IERC721Upgradeable.sol
 
 
-// OpenZeppelin Contracts (last updated v4.9.0) (token/ERC721/IERC721.sol)
-
-pragma solidity ^0.8.0;
 
 
 /**
@@ -172,10 +163,6 @@ interface IERC721Upgradeable is IERC165Upgradeable {
 // File: @openzeppelin/contracts-upgradeable/token/ERC20/extensions/IERC20PermitUpgradeable.sol
 
 
-// OpenZeppelin Contracts (last updated v4.9.0) (token/ERC20/extensions/IERC20Permit.sol)
-
-pragma solidity ^0.8.0;
-
 /**
  * @dev Interface of the ERC20 Permit extension allowing approvals to be made via signatures, as defined in
  * https://eips.ethereum.org/EIPS/eip-2612[EIP-2612].
@@ -235,10 +222,6 @@ interface IERC20PermitUpgradeable {
 // File: @openzeppelin/contracts-upgradeable/utils/StorageSlotUpgradeable.sol
 
 
-// OpenZeppelin Contracts (last updated v4.9.0) (utils/StorageSlot.sol)
-// This file was procedurally generated from scripts/generate/templates/StorageSlot.js.
-
-pragma solidity ^0.8.0;
 
 /**
  * @dev Library for reading and writing primitive types to specific storage slots.
@@ -376,10 +359,6 @@ library StorageSlotUpgradeable {
 // File: @openzeppelin/contracts-upgradeable/interfaces/IERC1967Upgradeable.sol
 
 
-// OpenZeppelin Contracts (last updated v4.9.0) (interfaces/IERC1967.sol)
-
-pragma solidity ^0.8.0;
-
 /**
  * @dev ERC-1967: Proxy Storage Slots. This interface contains the events defined in the ERC.
  *
@@ -404,11 +383,6 @@ interface IERC1967Upgradeable {
 
 // File: @openzeppelin/contracts-upgradeable/proxy/beacon/IBeaconUpgradeable.sol
 
-
-// OpenZeppelin Contracts v4.4.1 (proxy/beacon/IBeacon.sol)
-
-pragma solidity ^0.8.0;
-
 /**
  * @dev This is the interface that {BeaconProxy} expects of its beacon.
  */
@@ -423,10 +397,6 @@ interface IBeaconUpgradeable {
 
 // File: @openzeppelin/contracts-upgradeable/interfaces/draft-IERC1822Upgradeable.sol
 
-
-// OpenZeppelin Contracts (last updated v4.5.0) (interfaces/draft-IERC1822.sol)
-
-pragma solidity ^0.8.0;
 
 /**
  * @dev ERC1822: Universal Upgradeable Proxy Standard (UUPS) documents a method for upgradeability through a simplified
@@ -446,10 +416,6 @@ interface IERC1822ProxiableUpgradeable {
 
 // File: @openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol
 
-
-// OpenZeppelin Contracts (last updated v4.9.0) (utils/Address.sol)
-
-pragma solidity ^0.8.0;
 
 /**
  * @dev Collection of functions related to the address type
@@ -694,10 +660,6 @@ library AddressUpgradeable {
 // File: @openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol
 
 
-// OpenZeppelin Contracts (last updated v4.9.0) (proxy/utils/Initializable.sol)
-
-pragma solidity ^0.8.0;
-
 
 /**
  * @dev This is a base contract to aid in writing upgradeable contracts, or any kind of contract that will be deployed
@@ -861,12 +823,6 @@ abstract contract Initializable {
 
 // File: @openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol
 
-
-// OpenZeppelin Contracts (last updated v4.9.0) (security/ReentrancyGuard.sol)
-
-pragma solidity ^0.8.0;
-
-
 /**
  * @dev Contract module that helps prevent reentrant calls to a function.
  *
@@ -954,10 +910,6 @@ abstract contract ReentrancyGuardUpgradeable is Initializable {
 // File: @openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol
 
 
-// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)
-
-pragma solidity ^0.8.0;
-
 
 /**
  * @dev Provides information about the current execution context, including the
@@ -992,11 +944,6 @@ abstract contract ContextUpgradeable is Initializable {
 }
 
 // File: @openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol
-
-
-// OpenZeppelin Contracts (last updated v4.9.0) (access/Ownable.sol)
-
-pragma solidity ^0.8.0;
 
 
 
@@ -1089,14 +1036,6 @@ abstract contract OwnableUpgradeable is Initializable, ContextUpgradeable {
 }
 
 // File: @openzeppelin/contracts-upgradeable/proxy/ERC1967/ERC1967UpgradeUpgradeable.sol
-
-
-// OpenZeppelin Contracts (last updated v4.9.0) (proxy/ERC1967/ERC1967Upgrade.sol)
-
-pragma solidity ^0.8.0;
-
-
-
 
 
 
@@ -1263,10 +1202,6 @@ abstract contract ERC1967UpgradeUpgradeable is Initializable, IERC1967Upgradeabl
 // File: @openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol
 
 
-// OpenZeppelin Contracts (last updated v4.9.0) (proxy/utils/UUPSUpgradeable.sol)
-
-pragma solidity ^0.8.0;
-
 
 
 
@@ -1376,11 +1311,6 @@ abstract contract UUPSUpgradeable is Initializable, IERC1822ProxiableUpgradeable
 
 // File: @openzeppelin/contracts-upgradeable/token/ERC20/IERC20Upgradeable.sol
 
-
-// OpenZeppelin Contracts (last updated v4.9.0) (token/ERC20/IERC20.sol)
-
-pragma solidity ^0.8.0;
-
 /**
  * @dev Interface of the ERC20 standard as defined in the EIP.
  */
@@ -1456,14 +1386,6 @@ interface IERC20Upgradeable {
 }
 
 // File: @openzeppelin/contracts-upgradeable/token/ERC20/utils/SafeERC20Upgradeable.sol
-
-
-// OpenZeppelin Contracts (last updated v4.9.3) (token/ERC20/utils/SafeERC20.sol)
-
-pragma solidity ^0.8.0;
-
-
-
 
 /**
  * @title SafeERC20
@@ -1600,239 +1522,8 @@ library SafeERC20Upgradeable {
     }
 }
 
-// File: @openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol
-
-
-// OpenZeppelin Contracts (last updated v4.9.0) (utils/math/SafeMath.sol)
-
-pragma solidity ^0.8.0;
-
-// CAUTION
-// This version of SafeMath should only be used with Solidity 0.8 or later,
-// because it relies on the compiler's built in overflow checks.
-
-/**
- * @dev Wrappers over Solidity's arithmetic operations.
- *
- * NOTE: `SafeMath` is generally not needed starting with Solidity 0.8, since the compiler
- * now has built in overflow checking.
- */
-library SafeMathUpgradeable {
-    /**
-     * @dev Returns the addition of two unsigned integers, with an overflow flag.
-     *
-     * _Available since v3.4._
-     */
-    function tryAdd(uint256 a, uint256 b) internal pure returns (bool, uint256) {
-        unchecked {
-            uint256 c = a + b;
-            if (c < a) return (false, 0);
-            return (true, c);
-        }
-    }
-
-    /**
-     * @dev Returns the subtraction of two unsigned integers, with an overflow flag.
-     *
-     * _Available since v3.4._
-     */
-    function trySub(uint256 a, uint256 b) internal pure returns (bool, uint256) {
-        unchecked {
-            if (b > a) return (false, 0);
-            return (true, a - b);
-        }
-    }
-
-    /**
-     * @dev Returns the multiplication of two unsigned integers, with an overflow flag.
-     *
-     * _Available since v3.4._
-     */
-    function tryMul(uint256 a, uint256 b) internal pure returns (bool, uint256) {
-        unchecked {
-            // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
-            // benefit is lost if 'b' is also tested.
-            // See: https://github.com/OpenZeppelin/openzeppelin-contracts/pull/522
-            if (a == 0) return (true, 0);
-            uint256 c = a * b;
-            if (c / a != b) return (false, 0);
-            return (true, c);
-        }
-    }
-
-    /**
-     * @dev Returns the division of two unsigned integers, with a division by zero flag.
-     *
-     * _Available since v3.4._
-     */
-    function tryDiv(uint256 a, uint256 b) internal pure returns (bool, uint256) {
-        unchecked {
-            if (b == 0) return (false, 0);
-            return (true, a / b);
-        }
-    }
-
-    /**
-     * @dev Returns the remainder of dividing two unsigned integers, with a division by zero flag.
-     *
-     * _Available since v3.4._
-     */
-    function tryMod(uint256 a, uint256 b) internal pure returns (bool, uint256) {
-        unchecked {
-            if (b == 0) return (false, 0);
-            return (true, a % b);
-        }
-    }
-
-    /**
-     * @dev Returns the addition of two unsigned integers, reverting on
-     * overflow.
-     *
-     * Counterpart to Solidity's `+` operator.
-     *
-     * Requirements:
-     *
-     * - Addition cannot overflow.
-     */
-    function add(uint256 a, uint256 b) internal pure returns (uint256) {
-        return a + b;
-    }
-
-    /**
-     * @dev Returns the subtraction of two unsigned integers, reverting on
-     * overflow (when the result is negative).
-     *
-     * Counterpart to Solidity's `-` operator.
-     *
-     * Requirements:
-     *
-     * - Subtraction cannot overflow.
-     */
-    function sub(uint256 a, uint256 b) internal pure returns (uint256) {
-        return a - b;
-    }
-
-    /**
-     * @dev Returns the multiplication of two unsigned integers, reverting on
-     * overflow.
-     *
-     * Counterpart to Solidity's `*` operator.
-     *
-     * Requirements:
-     *
-     * - Multiplication cannot overflow.
-     */
-    function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        return a * b;
-    }
-
-    /**
-     * @dev Returns the integer division of two unsigned integers, reverting on
-     * division by zero. The result is rounded towards zero.
-     *
-     * Counterpart to Solidity's `/` operator.
-     *
-     * Requirements:
-     *
-     * - The divisor cannot be zero.
-     */
-    function div(uint256 a, uint256 b) internal pure returns (uint256) {
-        return a / b;
-    }
-
-    /**
-     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
-     * reverting when dividing by zero.
-     *
-     * Counterpart to Solidity's `%` operator. This function uses a `revert`
-     * opcode (which leaves remaining gas untouched) while Solidity uses an
-     * invalid opcode to revert (consuming all remaining gas).
-     *
-     * Requirements:
-     *
-     * - The divisor cannot be zero.
-     */
-    function mod(uint256 a, uint256 b) internal pure returns (uint256) {
-        return a % b;
-    }
-
-    /**
-     * @dev Returns the subtraction of two unsigned integers, reverting with custom message on
-     * overflow (when the result is negative).
-     *
-     * CAUTION: This function is deprecated because it requires allocating memory for the error
-     * message unnecessarily. For custom revert reasons use {trySub}.
-     *
-     * Counterpart to Solidity's `-` operator.
-     *
-     * Requirements:
-     *
-     * - Subtraction cannot overflow.
-     */
-    function sub(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
-        unchecked {
-            require(b <= a, errorMessage);
-            return a - b;
-        }
-    }
-
-    /**
-     * @dev Returns the integer division of two unsigned integers, reverting with custom message on
-     * division by zero. The result is rounded towards zero.
-     *
-     * Counterpart to Solidity's `/` operator. Note: this function uses a
-     * `revert` opcode (which leaves remaining gas untouched) while Solidity
-     * uses an invalid opcode to revert (consuming all remaining gas).
-     *
-     * Requirements:
-     *
-     * - The divisor cannot be zero.
-     */
-    function div(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
-        unchecked {
-            require(b > 0, errorMessage);
-            return a / b;
-        }
-    }
-
-    /**
-     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
-     * reverting with custom message when dividing by zero.
-     *
-     * CAUTION: This function is deprecated because it requires allocating memory for the error
-     * message unnecessarily. For custom revert reasons use {tryMod}.
-     *
-     * Counterpart to Solidity's `%` operator. This function uses a `revert`
-     * opcode (which leaves remaining gas untouched) while Solidity uses an
-     * invalid opcode to revert (consuming all remaining gas).
-     *
-     * Requirements:
-     *
-     * - The divisor cannot be zero.
-     */
-    function mod(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
-        unchecked {
-            require(b > 0, errorMessage);
-            return a % b;
-        }
-    }
-}
 
 // File: contracts/contracts/CreathMarketplace.sol
-
-
-pragma solidity ^0.8.0;
-
-
-
-
-
-
-
-
-
-
-
 
 interface ITreasury {
     // withdraw other token
@@ -1846,7 +1537,6 @@ Initializable,
 UUPSUpgradeable,
 OwnableUpgradeable, 
 ReentrancyGuardUpgradeable {
-    using SafeMathUpgradeable for uint256;
     using AddressUpgradeable for address payable;
     using SafeERC20Upgradeable for IERC20Upgradeable;
 
@@ -1878,8 +1568,9 @@ ReentrancyGuardUpgradeable {
         uint256 tokenId
     );
 
-    event UpdatePlatformFee(uint16 platformFee);
+    event UpdatePlatformFee(uint8 platformFee);
     event UpdatePlatformFeeRecipient(address payable platformFeeRecipient);
+    event PaymentMethodUpdated(address paymentMethod);
 
 
     bytes4 private constant INTERFACE_ID_ERC721 = 0x80ac58cd;
@@ -1893,7 +1584,7 @@ ReentrancyGuardUpgradeable {
         public listings;
 
     /// @notice Platform fee
-    uint16 public platformFee;
+    uint8 public platformFee;
 
     /// @notice Platform fee receipient
     address payable public feeReceipient;
@@ -1930,12 +1621,12 @@ ReentrancyGuardUpgradeable {
     function initialize(
         address payable _feeRecipient, 
         address _token,
-        uint16 _platformFee)
+        uint8 _platformFee)
         public
         initializer
     {
         __Ownable_init();
-
+        require(_platformFee < 100);
         platformFee = _platformFee;
         feeReceipient = _feeRecipient;
         paymentToken = IERC20Upgradeable(_token);
@@ -1951,6 +1642,8 @@ ReentrancyGuardUpgradeable {
 
     function updatePaymentToken(address newPaymentToken) external onlyOwner{
         paymentToken = IERC20Upgradeable(newPaymentToken);
+
+        emit PaymentMethodUpdated(newPaymentToken);
     }
 
     /// @notice Method for listing NFT
@@ -1972,6 +1665,8 @@ ReentrancyGuardUpgradeable {
         } else {
             revert("Creath Marketplace:invalid nft address");
         }
+        require(_price > 0, "Creath Marketplace:Not a valid price");
+        require(_artist > address(0), "Creath Marketplace:Not a valid address");
 
         listings[_nftAddress][_tokenId] = _price;
 
@@ -1989,7 +1684,6 @@ ReentrancyGuardUpgradeable {
     function cancelListing(address _nftAddress, address _artist, uint256 _tokenId)
         external
         onlyOwner
-        nonReentrant
         isListed(_nftAddress, _tokenId)
     {
         _cancelListing(_nftAddress,_artist, _tokenId);
@@ -2004,10 +1698,10 @@ ReentrancyGuardUpgradeable {
         address _artist,
         uint256 _tokenId,
         uint256 _newPrice
-    ) external onlyOwner nonReentrant isListed(_nftAddress, _tokenId) {
-        uint listedItem = listings[_nftAddress][_tokenId];
+    ) external onlyOwner isListed(_nftAddress, _tokenId) {
+        require(_newPrice > 0, "Creath Marketplace:Not a valid price");
+        listings[_nftAddress][_tokenId] = _newPrice;
 
-        listedItem = _newPrice;
         emit ItemUpdated(
             _artist,
             _nftAddress,
@@ -2035,33 +1729,31 @@ ReentrancyGuardUpgradeable {
         uint256 _tokenId,
         address buyer
     ) private {
-        uint listedItem = listings[_nftAddress][_tokenId];
+        uint listedItemPrice = listings[_nftAddress][_tokenId];
 
-        uint256 feeAmount = (listedItem.mul(platformFee)).div(100);
+        uint256 feeAmount = (listedItemPrice * platformFee) / 100;
 
         IERC20Upgradeable(paymentToken).safeTransferFrom(
             _msgSender(),
             feeReceipient,
-            listedItem
+            listedItemPrice
         );
 
         address artist = artists[_nftAddress][_tokenId];
         bought_items[buyer].push(Item(_tokenId, _nftAddress));
 
-        ITreasury(feeReceipient).withdrawToken(address(paymentToken), artist, listedItem.sub(feeAmount));
+        ITreasury(feeReceipient).withdrawToken(address(paymentToken), artist, listedItemPrice - feeAmount);
         
 
         // Transfer NFT to buyer
-        if (IERC165Upgradeable(_nftAddress).supportsInterface(INTERFACE_ID_ERC721)) {
-            IERC721Upgradeable(_nftAddress).transferFrom(owner(), buyer, _tokenId);      
-        } 
+        IERC721Upgradeable(_nftAddress).transferFrom(owner(), buyer, _tokenId);      
 
         emit ItemSold(
             artist,
             buyer,
             _nftAddress,
             _tokenId,
-            listedItem
+            listedItemPrice
         );
         delete (listings[_nftAddress][_tokenId]);
     }
@@ -2073,7 +1765,8 @@ ReentrancyGuardUpgradeable {
      @dev Only admin
      @param _platformFee uint16 the platform fee to set
      */
-    function updatePlatformFee(uint16 _platformFee) external onlyOwner {
+    function updatePlatformFee(uint8 _platformFee) external onlyOwner {
+        require(_platformFee < 100);
         platformFee = _platformFee;
         emit UpdatePlatformFee(_platformFee);
     }
